@@ -1,27 +1,28 @@
 import sys
+from graph import Graph
 from johnson import johnson
 
+
 def main(path):
-  try:
-    graph_file = open(path, 'r')
-    graph = {}
+    try:
+        graph_file = open(path, 'r')
+        graph = Graph()
 
-    for edge in graph_file.read().splitlines():
-      (from_n, to_n, edge_value) = edge.upper().split(',')
-      value = graph.get(from_n, {})
-      value[to_n] = int(edge_value)
-      graph[from_n] = value
+        for edge in graph_file.read().splitlines():
+            (u, v, w) = edge.upper().split(',')
+            graph.add_edge(u, v, w)
 
-    johnson(graph)
-    return 0
-  except:
-    print("The content of the file is wrong")
-    return 1
+        johnson(graph)
+        return 0
+    except:
+        print("The content of the file is wrong")
+        return 1
+
 
 if __name__ == "__main__":
-  if len(sys.argv) > 1:
-    exit_code = main(sys.argv[1])
-  else:
-    print("A filename is required as a parameter")
-    exit_code = 1
-  sys.exit(exit_code)
+    if len(sys.argv) > 1:
+        exit_code = main(sys.argv[1])
+    else:
+        print("A filename is required as a parameter")
+        exit_code = 1
+    sys.exit(exit_code)
