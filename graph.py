@@ -4,8 +4,8 @@ class Graph:
         self._graph = {}
 
     def add_edge(self, u, v, w):
-        self._nodes = self._nodes | set(u)
-        self._nodes = self._nodes | set(v)
+        self._nodes = self._nodes | {u}
+        self._nodes = self._nodes | {v}
         value = self._graph.get(u, {})
         value[v] = w
         self._graph[u] = value

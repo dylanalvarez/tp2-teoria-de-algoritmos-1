@@ -3,6 +3,27 @@ from graph import Graph
 from johnson import johnson
 
 
+def print_result(min_paths_by_node):
+    min_node = list(min_paths_by_node.keys())[0]
+    min_value = sum(min_paths_by_node[min_node].values())
+    for (u, min_paths) in min_paths_by_node.items():
+        value = sum(min_paths.values())
+        if value < min_value:
+            min_node = u
+            min_value = value
+    print("El depósito debe ir en la ciudad:", min_node)
+    print("Costos mínimos entre depósitos:")
+    print("{:^4}".format(" "), end=" ")
+    for u in min_paths_by_node.keys():
+        print("{:^4}".format(u), end=" ")
+    print("")
+    for (u, min_paths) in sorted(min_paths_by_node.items(), key=lambda item: item[0]):
+        print("{:^4}".format(u), end=" ")
+        for (v, w) in sorted(min_paths.items(), key=lambda item: item[0]):
+            print("{:^4}".format(w), end=" ")
+        print("")
+
+
 def main(path):
     try:
         graph_file = open(path, 'r')
@@ -20,18 +41,7 @@ def main(path):
     for (u, v, w) in edges:
         graph.add_edge(u, v, w)
 
-    johnson_result = johnson(graph)
-    result = {}
-    min_node = list(johnson_result.keys())[0]
-    min_value = sum(johnson_result[min_node].values())
-    for (u, min_paths) in johnson_result.items():
-        value = sum(min_paths.values())
-        result[u] = value
-        if value < min_value:
-            min_node = u
-            min_value = value
-    print(min_node)
-    print(min_value)
+    print_result(johnson(graph))
     return 0
 
 
