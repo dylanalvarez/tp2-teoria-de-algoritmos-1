@@ -6,18 +6,21 @@ from johnson import johnson
 def main(path):
     try:
         graph_file = open(path, 'r')
-        graph = Graph()
+        edges = []
 
         for edge in graph_file.read().splitlines():
-            (u, v, w) = edge.upper().split(',')
-            graph.add_edge(u, v, w)
-
-        johnson(graph)
-        return 0
+            (u, v, w) = edge.split(',')
+            edges.append((u, v, int(w)))
     except:
         print("The content of the file is wrong")
         return 1
 
+    graph = Graph()
+
+    for (u, v, w) in edges:
+        graph.add_edge(u, v, w)
+    johnson(graph)
+    return 0
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

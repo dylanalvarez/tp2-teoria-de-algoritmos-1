@@ -15,3 +15,6 @@ class Graph:
 
     def get_edges(self):
         return [(entry[0], edge[0], edge[1]) for entry in self._graph.items() for edge in entry[1].items()]
+
+    def get_weight(self, u, v):
+        return self._graph[u][v]

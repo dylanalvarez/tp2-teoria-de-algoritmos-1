@@ -2,24 +2,24 @@ import math
 
 
 def bellman_ford(graph, s):
-    distance = {}
-    predecessor = {}
+    distances = {}
+    predecessors = {}
 
     for v in graph.get_nodes():
-        distance[v] = math.inf
-        predecessor[v] = None
+        distances[v] = math.inf
+        predecessors[v] = None
 
-    distance[s] = 0
+    distances[s] = 0
     edges = graph.get_edges()
 
     for i in range(len(graph.get_nodes()) - 1):
         for (u, v, w) in edges:
-            if distance[v] > (distance[u] + w):
-                distance[v] = distance[u] + w
-                predecessor[v] = u
+            if distances[v] > (distances[u] + w):
+                distances[v] = distances[u] + w
+                predecessors[v] = u
 
     for (u, v, w) in edges:
-        if distance[v] > (distance[u] + w):
-            print("Negative cycle")
-            return False
-    return True
+        if distances[v] > (distances[u] + w):
+            raise RuntimeError("Negative cycle")
+
+    return distances
