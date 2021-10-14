@@ -18,3 +18,6 @@ class Graph:
 
     def get_weight(self, u, v):
         return self._graph[u][v]
+
+    def get_all_adjacent(self, u):
+        return self._graph[u].keys()

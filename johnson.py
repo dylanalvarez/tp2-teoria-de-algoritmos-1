@@ -2,6 +2,7 @@ import copy
 
 from graph import Graph
 from bellman_ford import bellman_ford
+from dijkstra import dijkstra
 
 EXTRA_NODE_KEY = "@"
 EXTRA_NODE_WEIGHT = 0
@@ -18,7 +19,9 @@ def johnson(graph):
     bellman_ford_graph = _graph_from_bellman_ford(graph, distances)
 
     # step 4
-    print(bellman_ford_graph.get_edges())
+    a = bellman_ford_graph.get_nodes().pop()
+    print(a)
+    print(dijkstra(bellman_ford_graph, a))
 
 
 def _graph_with_extra_node(graph):
