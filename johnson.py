@@ -19,9 +19,11 @@ def johnson(graph):
     bellman_ford_graph = _graph_from_bellman_ford(graph, distances)
 
     # step 4
-    a = bellman_ford_graph.get_nodes().pop()
-    print(a)
-    print(dijkstra(bellman_ford_graph, a))
+    result = {}
+    for u in bellman_ford_graph.get_nodes():
+        min_paths = dijkstra(bellman_ford_graph, u)
+        result[u] = min_paths
+    return result
 
 
 def _graph_with_extra_node(graph):

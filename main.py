@@ -19,8 +19,21 @@ def main(path):
 
     for (u, v, w) in edges:
         graph.add_edge(u, v, w)
-    johnson(graph)
+
+    johnson_result = johnson(graph)
+    result = {}
+    min_node = list(johnson_result.keys())[0]
+    min_value = sum(johnson_result[min_node].values())
+    for (u, min_paths) in johnson_result.items():
+        value = sum(min_paths.values())
+        result[u] = value
+        if value < min_value:
+            min_node = u
+            min_value = value
+    print(min_node)
+    print(min_value)
     return 0
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
