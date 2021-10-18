@@ -14,5 +14,5 @@ pip install -r requirements.txt
 
 Luego, debera ejecutar:
 ```
-pytest tests.py
+python3 -m pytest tests
 ```
