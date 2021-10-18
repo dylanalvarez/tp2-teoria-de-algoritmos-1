@@ -14,13 +14,15 @@ def print_result(min_paths_by_node):
     print("El depósito debe ir en la ciudad:", min_node)
     print("Costos mínimos entre depósitos:")
     print("{:^4}".format(" "), end=" ")
-    for u in min_paths_by_node.keys():
+    sorted_keys = sorted(min_paths_by_node.keys())
+    for u in sorted_keys:
         print("{:^4}".format(u), end=" ")
     print("")
-    for (u, min_paths) in sorted(min_paths_by_node.items(), key=lambda item: item[0]):
+
+    for u in sorted_keys:
         print("{:^4}".format(u), end=" ")
-        for (v, w) in sorted(min_paths.items(), key=lambda item: item[0]):
-            print("{:^4}".format(w), end=" ")
+        for v in sorted_keys:
+            print("{:^4}".format(min_paths_by_node[v][u]), end=" ")
         print("")
 
 
