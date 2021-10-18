@@ -38,4 +38,4 @@ class Graph:
         """
         Devuelve todos los nodos adyacentes a {u}
         """
-        return self._graph[u].keys()
+        return self._graph.get(u, {}).keys()
