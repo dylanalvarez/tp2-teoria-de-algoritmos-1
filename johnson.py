@@ -23,7 +23,7 @@ def johnson(graph):
     distances = bellman_ford(johnson_graph, EXTRA_NODE_KEY)
 
     # step 3
-    # Se genera un nuevo grafo intercambiando los pesos del grafo original 
+    # Se genera un nuevo grafo intercambiando los pesos del grafo original
     # por la fórmula {weight + distancia(u) - distancia (v)}
     bellman_ford_graph = _graph_from_bellman_ford(graph, distances)
 
@@ -35,12 +35,21 @@ def johnson(graph):
     for u in bellman_ford_graph.get_nodes():
         min_paths = dijkstra(bellman_ford_graph, u)
         result[u] = min_paths
-    return result
+
+    min_node = list(result.keys())[0]
+    min_value = sum(result[min_node].values())
+    for (u, min_paths) in result.items():
+        value = sum(min_paths.values())
+        if value < min_value:
+            min_node = u
+            min_value = value
+
+    return result, min_node
 
 
 def _graph_with_extra_node(graph):
     """
-    Al grafo original se añade un nodo adicional 
+    Al grafo original se añade un nodo adicional
     que está unido a todos los vértices del grafo con peso 0
     """
     johnson_graph = copy.deepcopy(graph)
@@ -57,4 +66,3 @@ def _graph_from_bellman_ford(graph, distances):
         bellman_ford_graph.add_edge(u, v, new_weight)
 
     return bellman_ford_graph
-

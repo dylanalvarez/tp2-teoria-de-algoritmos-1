@@ -3,14 +3,7 @@ from graph import Graph
 from johnson import johnson
 
 
-def print_result(min_paths_by_node):
-    min_node = list(min_paths_by_node.keys())[0]
-    min_value = sum(min_paths_by_node[min_node].values())
-    for (u, min_paths) in min_paths_by_node.items():
-        value = sum(min_paths.values())
-        if value < min_value:
-            min_node = u
-            min_value = value
+def print_result(min_paths_by_node, min_node):
     print("El depósito debe ir en la ciudad:", min_node)
     print("Costos mínimos entre depósitos:")
     print("{:^4}".format(" "), end=" ")
@@ -28,11 +21,11 @@ def print_result(min_paths_by_node):
 
 def main(path):
     try:
-        graph_file = open(path, 'r')
+        graph_file = open(path, "r")
         edges = []
 
         for edge in graph_file.read().splitlines():
-            (u, v, w) = edge.split(',')
+            (u, v, w) = edge.split(",")
             edges.append((u, v, int(w)))
     except:
         print("The content of the file is wrong")
@@ -43,7 +36,7 @@ def main(path):
     for (u, v, w) in edges:
         graph.add_edge(u, v, w)
 
-    print_result(johnson(graph))
+    print_result(*johnson(graph))
     return 0
 
 
