@@ -36,6 +36,11 @@ def johnson(graph):
         min_paths = dijkstra(bellman_ford_graph, u)
         result[u] = min_paths
 
+    # Se corrijen las distancias
+    for u in result.keys():
+        for v in result[u].keys():
+            result[u][v] += distances[v] - distances[u]
+
     min_node = list(result.keys())[0]
     min_value = sum(result[min_node].values())
     for (u, min_paths) in result.items():

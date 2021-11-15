@@ -8,14 +8,14 @@ def print_result(min_paths_by_node, min_node):
     print("Costos mínimos entre depósitos:")
     print("{:^4}".format(" "), end=" ")
     sorted_keys = sorted(min_paths_by_node.keys())
+    
     for u in sorted_keys:
         print("{:^4}".format(u), end=" ")
     print("")
-
-    for u in sorted_keys:
+    for (u, min_paths) in sorted(min_paths_by_node.items(), key=lambda item: item[0]):
         print("{:^4}".format(u), end=" ")
-        for v in sorted_keys:
-            print("{:^4}".format(min_paths_by_node[v][u]), end=" ")
+        for (v, w) in sorted(min_paths.items(), key=lambda item: item[0]):
+            print("{:^4}".format(w), end=" ")
         print("")
 
 
